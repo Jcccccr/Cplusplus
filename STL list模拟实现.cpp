@@ -18,7 +18,7 @@ struct NodeList
 	NodeList<T>* _next;
 	NodeList<T>* _prev;
 	NodeList(const T& a)     //为什么這里不加const就是错的   记住常量具有常属性 权限放大是危险的
-		:_data(a)
+		:_data(a)          //[*]
 		,_next(NULL)
 		,_prev(NULL)
 	{
@@ -39,7 +39,7 @@ struct ListIterator                      //迭代器的目的就是遍历链表 没有必要写析
 		cout << "创建一个迭代器" << endl;
 	}
 	ref operator*()
-	{
+	{   
 		return _node->_data;         //出了作用域這个变量依然存在 所以返回引用
 	}
 	ptr operator->()
@@ -63,6 +63,9 @@ struct ListIterator                      //迭代器的目的就是遍历链表 没有必要写析
 	}
 
 };
+
+
+// 主体
 template<class T>
 class List
 {
@@ -123,6 +126,17 @@ public:
 		}
 		return End();
 	}
+
+	//随机位置的插入和删除
+
+	void Insert(Iterator pos, const T& d)     //注意：我这里的插入需要考虑是不是在头节点插入吗？  其实不需要，因为這是一个双向循环链表，并不需要考虑那么多
+	{
+		assert(pos._node)   //注意断言的使用
+		{
+		     
+		}
+	
+	}
 	ConstIterator Begin() const
 	{
 		ConstIterator Bit(_head->_next);                  //遍历是遍历有效节点   是从第二个开始的
@@ -130,7 +144,7 @@ public:
 	}
 	Iterator Begin()
 	{
-		Iterator Bit(_head->_next);                 
+		Iterator Bit(_head->_next);                    
 		return Bit;
 	}
 	ConstIterator End() const      //const修饰的成员函数，可以被const对象调用
@@ -143,7 +157,7 @@ public:
 		Iterator Eit(_head);
 		return Eit;
 	}
-	void Destory()
+	void Destory()      
 	{
 		Iterator it = Begin();
 		while (it != End())
@@ -163,6 +177,9 @@ public:
 	}
 };
 
+
+
+//   打印   注意：迭代器的意义：1.能让很多容器都使用迭代器，使用同样的方式遍历和修改数据 2.能够在类外打印数据
 template <class T>
 void PrintList(List<T>& l1)
 {
@@ -186,6 +203,12 @@ void PrintList(List<T>& l1)
 //	}
 //	cout << endl;
 //}
+
+
+
+
+
+//--------------------------------------------------测试------------------------------------------------
 void test()
 {
 	
@@ -195,6 +218,9 @@ void test()
 	
 	//const int& b = 1;      //具有常属性的量必须要赋值给具有常属性的量
 	
+
+
+
 	List<int> l1;
 	int a = 1;
 	l1.PushBack(a);
@@ -208,10 +234,10 @@ void test()
 	l2.PushBack(AA());
 	l2.PushBack(AA());
 	//PrintList(l2);
-	List<AA>::Iterator it = l2.Begin();
+	List<AA>::Iterator it = l2.Begin();               //這里的it是指向AA结构体的指针
 	while (it != l2.End())
 	{
-		it->b = 1;
+		it->a = 1;
 		cout << it->b << " ";                //当是自定义类型的时候对->重载可以让迭代器指针访问结点内的结构体数据。
 		it++;
 	}
