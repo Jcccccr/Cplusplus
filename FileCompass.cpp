@@ -46,12 +46,12 @@ public:
 	void Compass(const char* filename)//   压缩文件
 	{
 		assert(filename);
-		FILE* fout = fopen(filename, "r");        //這里的 "r"是什么意思？
+		FILE* fout = fopen(filename, "r");        //這里的 "r"是什么意思？   以读的方式
 		assert(fout);
 
 		//统计字符出现的次数
-		char ch = fgetc(fout);                 //fgec的用法
-		while (ch!=EOF)                      //EOF：文件结束标志？？
+		char ch = fgetc(fout);                 //fgetc的用法
+		while (ch!=EOF)                      //EOF：文件结束标志
 		{
 			Info[ch]._Count++;
 			ch = fgetc(fout);
@@ -63,46 +63,108 @@ public:
 		_invalidInfoNode._Count = 0;                          //出现次数为0的字母包
 		HuffmanTree<CharInfo> _h(Info, 256,_invalidInfoNode);
 
-		GetHuffmanCode(_h.GetRoot());
+		string code;
+		GetHuffmanCodeII(_h.GetRoot(),code);
 
-	
+
+
+		//创建压缩文件进行压缩
+		//1.
+		string compassfile = filename;                   //這里存在疑问
+		compassfile = compassfile + ".huffman";
+		FILE* fIn = fopen(compassfile.c_str(), "w");      //注意這里的c_str().....    还有這里就会创建一个新的文件
+		assert(fIn);
+
+		//2.
+		char value = 0;
+		int count = 0;              //要注意這里的count的刚开始的值和最后结束的值
+		fseek(fout, 0, SEEK_SET);     //fseek函数的返回值为整形，不是一个文件指针  fout指针指向文件首字母
+		char ch1 = fgetc(fout);        //fgetc操作函数
+		while (ch1!=EOF)
+		{
+			string& code = Info[ch1]._HUffmanCode;     
+			for (size_t i = 0; i < code.size(); i++)
+			{
+				value <<= 1;                      //注意移位并不会改变变量本身的值
+				if (code[i] == '1')                //string支持了[]的重载
+				{
+					value |= 1;
+				}
+				else
+				{
+					value |= 0;
+				}
+				count++;
+
+				if (count == 8)                   //满8位就写到压缩文件里面去  然后重新给8位0
+				{
+					fputc(value, fIn);            //fputc的使用
+					value = 0;
+					count = 0;
+				}
+			}
+			ch1 = fgetc(fout);
+		}
+
+		fclose(fIn);
+		fseek(fout, 0, SEEK_SET);
+		fclose(fout);
+
+	  
 	}
-	//获取赫夫曼编码（递归，从底下往上跑）[*]
-	void GetHuffmanCode(CharNode* root)
+	//获取每一个字符的赫夫曼编码（递归，从底下往上跑）[*]
+	//void GetHuffmanCode(CharNode* root)
+	//{
+	//	string _code;
+	//	if (root == NULL)                               //返回条件
+	//		return;
+	//	if (root->_left == NULL&&root->_right == NULL)
+	//	{
+	//		CharNode* cur = root;
+	//		CharNode* parent = cur->_parent;
+	//		while (parent != NULL)
+	//		{
+	//		    if (cur == parent->_left)
+	//			{
+
+	//				_code.push_back('0');
+	//			}
+	//			if (cur == parent->_right)
+	//			{
+	//				_code.push_back('1');
+	//			}
+	//			cur = parent;
+	//			parent = cur->_parent;
+	//		}
+	//		Info[root->_data._ch]._HUffmanCode = _code;    //找到结点之后直接生成编码放进去
+	//		reverse(_code.begin(), _code.end());
+	//		return;
+	//	}
+	//	GetHuffmanCode(root->_left);
+	//	GetHuffmanCode(root->_right);
+	//}
+	
+	//第二种方法：  
+	void GetHuffmanCodeII(CharNode* root, string code)   //从高处往下递归递归下去，遇到叶子结点就把编码放到字母包的赫夫曼编码里面去。
 	{
-		string _code;
-		if (root == NULL)                               //返回条件
+		if (root == NULL)
 			return;
 		if (root->_left == NULL&&root->_right == NULL)
 		{
-			CharNode* cur = root;
-			CharNode* parent = cur->_parent;
-			while (parent != NULL)
-			{
-			    if (cur == parent->_left)
-				{
-					_code.push_back('0');
-				}
-				if (cur == parent->_right)
-				{
-					_code.push_back('1');
-				}
-				cur = parent;
-				parent = cur->_parent;
-			}
-			Info[root->_data._ch]._HUffmanCode = _code;    //找到结点之后直接生成编码放进去
+			Info[root->_data._ch]._HUffmanCode = code;     //注意這里不需要反转
 			return;
 		}
-		GetHuffmanCode(root->_left);
-		GetHuffmanCode(root->_right);
-	
+		GetHuffmanCodeII(root->_left, code + '0');     //注意：string是支持+的
+		GetHuffmanCodeII(root->_right, code + '1');
 	}
-
 
 	//解压
 	void UnCompass(const char* filename)
 	{
-	
+	   	assert(filename);
+		string uncompassfile = filename;
+		size_t pos = uncompassfile.rfind('.');
+	    
 	}
 
 };
