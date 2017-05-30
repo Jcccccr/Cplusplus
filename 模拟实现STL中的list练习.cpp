@@ -13,8 +13,8 @@ struct ListNode
 	T _data;
 	ListNode<T>* _prev;
 	ListNode<T>* _next;
-	ListNode(const T& d)
-		:_data(d)
+	ListNode(const T& d)                         //這里的问题： 为什么d是const修饰的变量 能够给非const修饰的 _data赋值？猜测：這里的d是一个常量
+		:_data(d)                           
 		, _prev(NULL)
 		, _next(NULL)
 	{
@@ -84,7 +84,7 @@ public:
 		:_head(new Node(T()))
 	{
 		_head->_next = _head;
-		_head->_prev = _head;              //粗心吧這个忘掉了
+		_head->_prev = _head;              //粗心把這个忘掉了
 
 		ConstIterator it = l.Begin();
 		while (it!=l.End())
@@ -156,7 +156,7 @@ public:
 		return itend;
 	}
 
-	ConstIterator End() const                 //这里在练习的时候出错了
+	ConstIterator End() const                 //这里在练习的时候出错了  记得返回值类型是ConstIterator  前面已经改了
 	{
 		ConstIterator itend(_head);
 		return itend;
