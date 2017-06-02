@@ -55,6 +55,8 @@
 //	int arr[] = { 1, 2, 4, 3, 6, 5, 7, 9, 10, 2, 5, 13, 7 };
 //	int Max;
 //	int i = 0;
+
+TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  TestInput.txt.uncomphuffman  
 //	Max = arr[0];
 //	for (i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
 //	{
@@ -950,13 +952,2484 @@
 //	test();
 //	return 0;
 
+TestInput.txt.uncomphuffman  
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
 
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
 
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
 
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
 
+	void Insert(size_t pos, char ch);
+};
 
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
 
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
 
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
 
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
 
+	void Insert(size_t pos, char ch);
+};
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
 
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};
+
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};
+
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};
+#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};#include<iostream>
+using namespace std;
+class String
+{  public:
+	String(const char* str = "")
+	{
+		size_t len = strlen(str);
+		_str = new char[len + 1];
+		strcpy(_str, str);
+		_size = len;
+		_capacity = len;
+	}
+	String(const String& s)
+		:_str(NULL)
+	{
+		String tmp(s._str);
+		tmp.Swap(*this);
+	}
+
+	String& operator=(String s)
+	{
+		this->Swap(s);
+		return *this;
+     }
+	~String()
+	{
+		if (_str)
+		{  
+			delete[] _str;
+			_str = NULL;
+			_size = _capacity = 0;
+		}
+	}
+	char* GetStr()
+	{ 
+		return _str;
+	}
+	const char*GetStr() const
+	{
+		return _str;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+	size_t Size() const
+	 {
+		return _size;
+	}
+	size_t Capacity()
+	{
+		return _capacity;
+	}
+
+	void Expend(size_t  n)
+	{
+		assert(n > _capacity);
+		_str = (char*)realloc(_str, n);
+		_capacity = n;
+	}
+	void PushBack(char ch)
+	{
+		if (_size == _capacity)
+		{
+			Expend(_size * 2 + 1);
+		}
+		_str[_size + 1] = '\0';
+		++_size;
+	}
+	void Insert(size_t pos, const char* str)
+	{  
+		assert(pos < _size);
+		size_t len = strlen(str);
+		if (_size + len>_capacity)
+		{ 
+			Expend(_size + len + 1);
+		}
+		//挪动数据；
+		size_t end = _size;
+		while (end >= pos)
+		{
+			_str[end + len] = _str[len];
+			--end;
+		}
+	  //插入数据
+		while (*str)
+		{
+			_str[pos] = *str;
+			++pos;
+			++str;
+		}
+	}
+
+	void Insert(size_t pos, char ch);
+};
