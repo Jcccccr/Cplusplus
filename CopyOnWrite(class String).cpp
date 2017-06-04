@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
-//写时拷贝的练习     []运算符的重载
+//引用计数+写时拷贝的练习     []运算符的重载
 #include<iostream>
 #include<assert.h>
 using namespace std;
@@ -42,7 +42,7 @@ public:
 	}
 	char& operator[](size_t index)
 	{
-		assert(index < strlen(_str));
+		assert(index < strlen(_str));                 //這样的写法是存在错误的
 		return _str[index];
 	}
 
