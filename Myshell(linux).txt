@@ -1,0 +1,68 @@
+   #include<stdio.h>
+   #include<stdlib.h>
+   #include<unistd.h>
+   #include<sys/types.h>
+   #include<sys/wait.h>
+   #include <sys/stat.h>
+   #include <fcntl.h>
+   #include<string.h>
+   int main()
+    {
+      while(1)
+      {
+        printf("[myshell@myhostname test]# ");
+        fflush(stdout);
+        char buf[1024];
+        ssize_t s= read(0,buf,sizeof(buf)-1);//[*]
+        if(s>0)
+        {
+            buf[s-1]=0;
+        }
+  
+        char* argv[32];
+        char* start = buf;
+        argv[0]=buf;
+  
+        int i = 1;
+        while(*start)
+        {
+            if(*start==' ')
+            {
+                *start=0;
+                 start++;
+                 argv[i++]=start;
+            }
+            else 
+              start++;
+        }
+        argv[i]=NULL;
+       if(strcmp(argv[i-2],">") == 0)//  ">"  exp: ls>Makefile
+        {
+           argv[i-2] = NULL;
+           pid_t id = fork();
+           if(id == 0)
+                {//child
+                    close(1);
+                    open(argv[i-2],O_WRONLY|O_CREAT,0666);
+                   int ret =  execvp(argv[0],argv);
+                   if(ret == 0)
+                       perror("execerror!");
+                       exit(1);
+                }
+        }
+        pid_t id = fork();
+        if(id==0)
+           {//child
+             int ret = execvp(argv[0],argv);
+               if(ret==0)
+                   perror("execerror!");
+                   exit(1);
+            }
+       else
+       {//father
+           wait(NULL);
+        }
+  
+      }
+      return 0;
+    }
