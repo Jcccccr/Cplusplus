@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+
+int main()
+{
+        pid_t id=fork();
+        if(id==0)
+        {//child
+            printf("i am child my id is: %d\n",getpid());
+        //int ret=execlp("ls","ls","-a","-l","-n",NULL);
+
+                char* argv[]={ "ls","-a","-l","-n",NULL};
+
+        int ret = execv("/bin/ls",argv);
+         // printf("i am child my id:%d\n",getpid());
+                if(ret==-1)
+                {
+                        perror("execerror!\n");
+                        exit(1);
+                }
+                exit(0);
+        }
+        else
+        {//father
+           pid_t ret=wait(NULL);
+           if(ret>0)
+           {
+                   printf("child exit success! id:%d\n",ret);
+                   printf("my child pid is:%d\n",id);
+           }
+        }
+  return 0;
+}
