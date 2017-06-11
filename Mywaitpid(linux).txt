@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+
+int main()
+{
+        pid_t id=fork();
+        if(id==0)
+        {//child
+          while(1)
+          {
+          printf("this is child id:%d\n",getpid());
+          sleep(4);
+          }
+        }
+        else
+        {//father
+        printf("i am father i am waitting...\n ");
+                int status = 0;    //[*]
+        //      do
+        //      {
+                //pid_t ret = wait(&status);
+                pid_t ret=wait(&status); //[*] pay attention to this "id"
+            //  if(ret==0)
+                  //  { 
+                        //   printf("fatherproc is running...\n");
+                          // sleep(1);
+                        //}
+                    if(ret>0)
+                    {
+                        printf("waitting success!\n");
+                        sleep(1);
+                         if(WIFEXITED(status))
+                        {
+                            printf("child is exited!  exitcode:%d\n",WEXITSTATUS(status));
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                           perror("waitfalse!");
+                           return 0;
+                    }
+            //  }while(1);
+        }
+        return 0;
+}
