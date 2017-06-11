@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/wait.h>
+
+int main()
+{
+    int pipefd[2];
+        int ret = pipe(pipefd);
+        if(ret==-1)
+        {
+         perror("pipe");
+        // exit(1);                             
+        }
+
+        pid_t id = fork();
+        if(id==0)
+        {//child ,write
+            int count = 0;
+            int i =0;
+            char* sendmsg = NULL;
+                close(pipefd[0]);
+        while(i<100)
+                {
+                     sendmsg="Hello Dad !";
+                        // printf("i am sendingmsg...");
+                     ssize_t ret =  write(pipefd[1],sendmsg,strlen(sendmsg));//  [*]
+                         //printf("ret=%d\n",ret);
+                     printf("i am sendingmsg,count: %d\n",count++);
+                        // sleep(1);
+                         i++;
+                }
+ // close(pipefd[1]);
+                return 0;
+        }
+        else
+        {//father
+           int status = 0;
+           int i=0;
+           char buf[30];
+          // memset(buf,'\0',sizeof(buf));
+           close(pipefd[1]);
+           while(i<5)
+           {
+             memset(buf,'\0',sizeof(buf));
+                 int ret  = read(pipefd[0],buf,sizeof(buf));
+                // printf("%d\n",ret);
+                 printf("%s\n",buf);
+                 i++;
+           }
+           printf("Dad not read from now\n");
+           sleep(20);
+          // close(pipefd[0]);
+         //  pid_t id = wait(&status);
+          // if(id > 0)
+          // {
+          //     printf("child is exit,id:%d,the exit sig :%d\n",id,status&0xff);//[*]     
+          // }
+          // else
+          // {
+                //   perror("wait");
+          // }
+        }
+ }
