@@ -25,7 +25,7 @@ public:
 		cout << "初始化" << endl;
 	}
 
-	Vector(const Vector<T>& v)     //注意拷贝构造的时候 vector的设计方案
+	Vector(const Vector<T>& v)     //注意拷贝构造的时候 vector的设计方案   3点
 		:_start(NULL)
 		, _finished(NULL)
 		, _endofstorage(NULL)
@@ -84,27 +84,36 @@ public:
 
 	T& operator[](const size_t& index)    //可写
 	{
+		if (index >= Size())
+		{
+			perror("下标输入错误");        //perror 的用法
+		}
 		return _start[index];
 	}
 	const T& operator[](const size_t& index) const  //只读
 	{
+		if (index >= Size())
+		{
+			perror("下标输入错误");
+		}
 		return _start[index];
 	}
 	void reserve(size_t n)
 	{
 		Expand(n);
 	}
-	void resize()             //[*]
+	void resize()                        //[*]
 	{
-
+		 
 	}
 	// -----------------迭代器失效-----------
 	void Insert(Iterator pos,const T& d)
 	{
-	
+	    
 	}
 	void Erase(Iterator pos)
 	{
+		 
 	}
 	Iterator Begin()
 	{
