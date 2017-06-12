@@ -39,6 +39,18 @@ public:
 		size_t index = 0;
 		_root = _BinaryTree(a, n, invalid, index);
 	}
+	BinaryTree(const BinaryTree<T>& b)                  //拷贝构造
+	{
+		_root = _Copy(b._root);
+    }
+	BinaryTree<T>& operator=(const BinaryTree<T>& b)      //赋值运算符的重载
+	{
+		if (_root)
+			_Destroy(_root);
+		_root = NULL;
+		_root = _Copy(b._root);
+		return *this;
+	}
 	void PrevOrder()                                 //前序遍历
 	{
 		_PrevOrder(_root);
@@ -84,9 +96,24 @@ public:
 		return _KLevelSize(_root,K);
 	}
 
-	size_t Depth()                           //求树的深度
+	size_t Depth()                           //求树的深度   [*]
 	{
 		return _Depth(_root);
+	}
+	Node* Find(const T& d)                    //查找
+	{
+		return _Find(_root, d);
+	}
+
+	Node*  Copy()                          //[*]   拷贝树
+	{
+		return _Copy(_root);
+	}
+	~BinaryTree()
+	{
+		Destory(_root);
+		_root = NULL;
+		cout << "析构" << endl;
 	}
 protected:
 	Node* _BinaryTree(T* a, size_t n, const T& invalid, size_t& index)                  //如果不用引用，在栈帧销毁返回的时候就会出现问题
@@ -161,14 +188,51 @@ protected:
 		size_t rightDepth = _Depth(root->_right);
 		return leftDepth > rightDepth?  leftDepth + 1: rightDepth+1;        //加1是加上根结点     
 	}
+	Node* _Find(Node* root, const T& d)                     //查找[*]   這里的查找和后面的搜索二叉树的查找有所不同
+	{
+		if (root == NULL)
+			return NULL;
+		if (root->_data == d)
+			return root;
+		/*else                            //這样写有问题
+		{
+			_Find(root->_left,d);
+			_Find(root->_right, d);
+		}*/
+		Node* tmp = _Find(root->_left,d);
+		if (tmp != NULL)                        //注意這个判断放的位置
+			return tmp;
+		_Find(root->_right, d);
+	}
+	void Destory(Node* root)              //[*]
+	{
+		if (root == NULL)
+			return;
+		Destory(root->_left);
+		Destory(root->_right);
+		delete root;                  //注意這里的delete一定要放在最后  相当于后序析构，因为先析构根结点子树就找不到了没办法析构了
+	}
+
+	Node* _Copy(Node* root)
+	{
+		Node* newroot = NULL;
+		if (root == NULL)
+			return NULL;
+		newroot = new Node(root->_data);
+		newroot->_left = _Copy(root->_left);
+		newroot->_right = _Copy(root->_right);
+		return newroot;
+	}
 
 };
 
 
 
+// 测试
 void test()
 {
 	int arr[] = { 1, 2, 3, '#', '#', 4, '#', '#', 5, 6 };
+	int brr[] = { 2, 1, 3, '#', '#', 5, '#', '#', 7, 6, '#', 8 };
 	BinaryTree<int> b1(arr, sizeof(arr) / sizeof(arr[0]), '#');
 	b1.PrevOrder();
 	b1.InOrder();
@@ -178,6 +242,18 @@ void test()
 	cout << b1.LeafSize() << endl;
 	cout << b1.KLevelSize(3) << endl;
 	cout << b1.Depth() << endl;
+	cout << b1.Find(3) << endl;
+
+	BinaryTree<int>  b2(b1);
+	b2.InOrder();
+	b2.LeafSize();
+	b2.PrevOrder();
+
+	BinaryTree<int> b3(brr, sizeof(brr) / sizeof(brr[0]),'#');
+	b3.InOrder();
+
+	b3 = b1;
+	b3.InOrder();
 }
 int main()
 {
