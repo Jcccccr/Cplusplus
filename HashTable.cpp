@@ -7,7 +7,7 @@ using namespace std;
 
 //哈希表除留余数法（线性探测）  时间复杂度o(1)        针对于各种数据结构的时间复杂度
 
-enum HashState       //插入数据的状态
+enum HashState          //插入数据的状态
 {
 	EXIST,
 	EMPTY,
@@ -19,9 +19,8 @@ struct HashNode
 {
 	pair<K, V> _kv;
 	HashState _state;
-	HashNode(const pair<K ,V>& kv=make_pair(0,0))       //刚开始没有给pair的默认值，在最初的vector构造的时候会调vector对象的默认构造函数，就出错了
-		: _kv(kv)
-		, _state(EMPTY)
+	HashNode(/*const pair<K ,V>& kv=make_pair(0,0)*/)      //不太清楚位什么這里pair不需要初始化，pair自己初始化的结果是什么？
+		: _state(EMPTY)/*_kv(kv)*/                      //经过调试发现pair默认构造函数模板类型为int的时候初始化为0，string类型的时候初始化为""
 	{
 		cout << "构造哈希结点" << endl;
 	}
@@ -174,27 +173,27 @@ protected:
 					newHash._hash[index]._state = EXIST;
 				}
 			}
-			newHash._n = _n;
+			//newHash._n = _n;
 			_hash.swap(newHash._hash);        //调用vector的swap进行交换
 		}
 	}
 };
 
-
+//------------------------测试----------------------------
 void test()
 {
-	/*HashTable<int, int,_HashFunc<int>> Hasht1;
+	HashTable<int, int,_HashFunc<int>> Hasht1;
 	Hasht1.Insert(make_pair(7, 1));
 	Hasht1.Insert(make_pair(72, 1));
 	Hasht1.Insert(make_pair(71, 1));
 	Hasht1.Insert(make_pair(34, 1));
 	Hasht1.Insert(make_pair(5, 1));
 	Hasht1.Insert(make_pair(66, 1));
-	cout<<Hasht1.Find(34)<<endl;*/
+	cout<<Hasht1.Find(34)<<endl;
 
 	HashTable<string, string, _HashFuncstring> Hasht2;
 	Hasht2.Insert(make_pair("left", "左边"));
-	//Hasht2.Insert(make_pair(string("right"), string("右边")));
+	Hasht2.Insert(make_pair(string("right"), string("右边")));
 	//Hasht2.Insert(make_pair(string("upside"), string("上边")));
 	//Hasht2.Insert(make_pair(string("down"), string("下边")));
 	//Hasht2.Insert(make_pair(string("inside"), string("里边")));
