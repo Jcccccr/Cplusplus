@@ -335,15 +335,15 @@ void test()
 	Hb2.Insert(make_pair(rand(), 3));
 	Hb2.Insert(make_pair(rand(), 3));
 	Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
-	//Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
+	Hb2.Insert(make_pair(rand(), 3));
 	//Hb2.Insert(make_pair(rand(), 3));
 
 	//µü´úÆ÷²âÊÔ
