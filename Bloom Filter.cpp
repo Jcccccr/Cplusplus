@@ -1,17 +1,48 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
+//布隆过滤器基本实现
 
 #include"Bloom.h"
+struct _HashFunc1
+{
 
-template<class K,class V>
+};
+struct _HashFunc2
+{
+
+};
+struct _HashFunc3
+{
+
+};
+struct _HashFunc4
+{
+
+};
+struct _HashFunc5
+{
+
+};
+
+template<class K,class _HashFunc1 = _HashFunc1,
+               class _HashFunc2 = _HashFunc2, 
+               class _HashFunc3 = _HashFunc3, 
+               class _HashFunc4 = _HashFunc4, 
+               class _HashFunc5 = _HashFunc5>
 class BloomFilter
 {
 private:
 	bitmap  _bloomf;
 public:
-	void InitBloom
+	//BloomFilter()       //构造
+	//{
+	//	cout << "构造布隆" << endl;
+	//}
+	BloomFilter(const int& size)
+		:_bloomf(size)
 	{
-    }
+		cout << "构造" << endl;
+	}
 	void Setbloom()
 	{
 	}
@@ -26,9 +57,9 @@ protected:
 	{
 	}
 };
-void   testBloomFilter()
+void  testBloomFilter()
 {
-
+    
 }
 int main()
 {
