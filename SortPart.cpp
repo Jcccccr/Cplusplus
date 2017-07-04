@@ -2,9 +2,10 @@
 
 #include<iostream>
 #include<string>
+#include<assert.h>
 using namespace std;
 
-
+//打印
 void PrintArr(int* a, size_t n)
 {
 	for (size_t i = 0; i < n; i++)
@@ -59,7 +60,7 @@ void SelectSort(int a[], size_t n)
 		swap(a[end], a[minindex]);
 	}
 }
-//选择排序（每次选择两个数字，最大和最小）
+//选择排序（每次选择两个数字，最大和最小）        //当最小的数在0号下标，最大的数在数组最后的时候同时选择两个数就会出现问题
 void SelectSortD(int a[], size_t n)
 {
 	int i = 0;
@@ -94,6 +95,42 @@ void SelectSortD(int a[], size_t n)
 }
 //选择排序—堆排
 
+void Adjustdown(int root,size_t n,int a[])     //root当前下标
+{
+	int parent = root;
+	int child = parent * 2 + 1;            //左孩子
+	while (child < n)
+	{
+		if (child != n - 1 && a[child] < a[child + 1])       //选择大的那个孩子      這里的条件判断很容易出错
+		{
+			child++;
+		}
+		if (a[parent] < a[child])
+		{
+			swap(a[parent], a[child]);
+			parent = child;
+			child = parent * 2 + 1;
+		}
+		else
+			break;              //注意這里如果我不写這个break  程序死循环了
+	}
+}
+void HeapSort(int arr[],size_t n)
+{
+	assert(arr);
+	//先建大堆
+	for (int i = (n - 2) / 2; i >= 0; i--)      //注意這里是(n-2)/2   不是(n-1)/2 刚开始写错了
+	{
+		Adjustdown(i, n, arr);
+	}
+	//利用堆顶最大的数据排序
+	for (size_t i = 1; i < n; i++)
+	{
+		swap(arr[0], arr[n - i]);
+		Adjustdown(0, n - i, arr);
+	}
+}
+
 
 
 int main()
@@ -105,7 +142,8 @@ int main()
 	//int arr[] = { 3, 1, 4, 2 };                                      //针对于有很多循环的可以用小一点的数组测试
 	PrintArr(arr, sizeof(arr) / sizeof(arr[0]));
 	//InsertSort(arr, sizeof(arr) / sizeof(arr[0]));
-	SelectSortD(arr, sizeof(arr) / sizeof(arr[0]));
+	//SelectSortD(arr, sizeof(arr) / sizeof(arr[0]));
+    HeapSort(arr, sizeof(arr) / sizeof(arr[0]));
 	PrintArr(arr, sizeof(arr) / sizeof(arr[0]));
 	return 0;
 }
