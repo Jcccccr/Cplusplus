@@ -103,7 +103,7 @@ void Adjustdown(int root,size_t n,int a[])     //root当前下标
 	{
 		if (child != n - 1 && a[child] < a[child + 1])       //选择大的那个孩子      這里的条件判断很容易出错
 		{
-			child++;
+			child++;   
 		}
 		if (a[parent] < a[child])
 		{
@@ -131,19 +131,102 @@ void HeapSort(int arr[],size_t n)
 	}
 }
 
+//交换排序—冒泡排序  时间复杂度是o（N^2）
+void BubbleSort(int* a,size_t n)
+{
+	for (int end = n - 1; end>0; end--)
+	{
+		bool exchange = false;
+		size_t first = 0;
+		size_t second = first + 1;
+		while (second != (end + 1))
+		{
+			if (a[first] > a[second])
+			{
+				swap(a[first],a[second]);
+				exchange = true;
+			}
+			++first;
+			++second;
+			if (exchange == false)
+			{
+				cout << "没有发生交换" << endl;
+			}
+		}
+	}
+}
 
+//交换排序—快速排序（快排）（递归）   
+//左右指针法
+int PartSort(int* a, int begin, int end)
+{
+	int key = end;
+	while (begin != end)
+	{
+		while (begin < end && a[begin] <= a[key])     //這里的问题之一就是如果出现相等的数，如果条件写错那么就会出现死循环
+		{
+			begin++;
+		}
+		while (begin < end && a[end] >= a[key])
+		{
+			end--;
+		}
+		if (begin < end)
+		swap(a[begin], a[end]);
+	}
+	swap(a[begin], a[key]);
+	return begin ;
+}
+//挖坑法    (写错了)
+int WKPartSort(int* a, int begin, int end)
+{
+	int key = a[end];
+	while (begin != end)
+	{
+		while (begin < end && a[begin] <= a[end])
+		{
+			begin++;
+		}
+		a[end] = a[begin];
+		while (begin<end && a[end] > key)
+		{
+			end--;
+		}
+		a[end] = a[begin];   
+	}
+	a[begin] = key;      //begin和end相会的地方绝对是一个坑，然后把key值填充进去就行
+	return begin;
+}
+
+//前后指针法   
+
+void QuickSort(int* a, int begin, int end)
+{
+	assert(a);
+	if (begin < end)
+	{
+		//int prev = PartSort(a, begin, end);
+		int prev = WKPartSort(a, begin, end);
+		QuickSort(a, begin, prev-1);
+		QuickSort(a, prev + 1, end);
+	}
+	else
+      return;
+}
 
 int main()
 {
 	//int arr[] = { 2, 5, 4, 9, 3, 6, 1, 8, 7, 0 };
-	//int arr[] = { 1, 9, 6, 4, 0, 5, 7, 8, 2, 3 };
-	int arr[] = { 0, 3, 6, 4, 1, 5, 7, 8, 2, 9 };
+	int arr[] = { 1, 9, 6, 4, 0, 5, 7, 8, 2, 3 };
+	//int arr[] = { 0, 3, 6, 4, 1, 5, 7, 8, 2, 9 };
 	//string arr[] = { "hahah", "hehe", "huhuhu", "jajxi", "hsu" };
 	//int arr[] = { 3, 1, 4, 2 };                                      //针对于有很多循环的可以用小一点的数组测试
 	PrintArr(arr, sizeof(arr) / sizeof(arr[0]));
 	//InsertSort(arr, sizeof(arr) / sizeof(arr[0]));
 	//SelectSortD(arr, sizeof(arr) / sizeof(arr[0]));
-    HeapSort(arr, sizeof(arr) / sizeof(arr[0]));
+	//HeapSort(arr, sizeof(arr) / sizeof(arr[0]));
+	//BubbleSort(arr, sizeof(arr) / sizeof(arr[0]));
+	QuickSort(arr, 0, sizeof(arr) / sizeof(arr[0]) - 1);
 	PrintArr(arr, sizeof(arr) / sizeof(arr[0]));
 	return 0;
 }
