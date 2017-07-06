@@ -77,7 +77,7 @@ void testmap()
 	//	cout << it->first << ":" << it->second << endl;
 	//	it++;
 	//}
-	////erase使用
+	//erase使用
 	//size_t num = mp1.erase("苹果");
 	//cout << "删除元素个数:" << num << endl;
 	//map<string, int>::iterator it1 = mp1.erase(mp1.find("橘子"));
@@ -97,6 +97,7 @@ void testmap()
 	multmp.insert(make_pair("left", "剩余"));
 	multmp.insert(make_pair("left", "剩余"));
 */
+
 
 	//有序
 	/*multimap<int, int> multmp1;
