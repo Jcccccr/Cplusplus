@@ -157,6 +157,11 @@ void BubbleSort(int* a,size_t n)
 }
 
 //交换排序—快速排序（快排）（递归）   
+//获取Key值
+int GetMid(int* a, int begin, int end)
+{
+	return begin;
+}
 //左右指针法
 int PartSort(int* a, int begin, int end)
 {
@@ -177,7 +182,7 @@ int PartSort(int* a, int begin, int end)
 	swap(a[begin], a[key]);
 	return begin ;
 }
-//挖坑法    (写错了)
+//挖坑法  
 int WKPartSort(int* a, int begin, int end)
 {
 	int key = a[end];
@@ -188,39 +193,58 @@ int WKPartSort(int* a, int begin, int end)
 			begin++;
 		}
 		a[end] = a[begin];
-		while (begin<end && a[end] > key)
+		while (begin < end && a[end] >= key)
 		{
 			end--;
 		}
-		a[end] = a[begin];   
+		a[begin] = a[end];   
 	}
 	a[begin] = key;      //begin和end相会的地方绝对是一个坑，然后把key值填充进去就行
 	return begin;
 }
 
-//前后指针法   
-
+//前后指针法 （难以理解也容易出错）  
+int FSPtrPartSort(int* a, int begin ,int end)
+{
+	int cur = begin;
+	int prev = begin-1;
+	while (cur < end)
+	{
+		if (a[cur] < a[end] && ++prev != cur)
+		{
+			swap(a[prev], a[cur]);
+		}
+			++cur;
+	}
+	swap(a[++prev], a[end]);
+	return prev;
+}
+//递归
 void QuickSort(int* a, int begin, int end)
 {
 	assert(a);
 	if (begin < end)
 	{
 		//int prev = PartSort(a, begin, end);
-		int prev = WKPartSort(a, begin, end);
+		//int prev = WKPartSort(a, begin, end);
+		int prev = FSPtrPartSort(a, begin, end);    //前后指针法
 		QuickSort(a, begin, prev-1);
 		QuickSort(a, prev + 1, end);
 	}
-	else
-      return;
 }
 
 int main()
 {
-	//int arr[] = { 2, 5, 4, 9, 3, 6, 1, 8, 7, 0 };
+	//int arr[] = { 2, 0, 4, 9, 3, 6, 1, 8, 7, 5 };
 	int arr[] = { 1, 9, 6, 4, 0, 5, 7, 8, 2, 3 };
 	//int arr[] = { 0, 3, 6, 4, 1, 5, 7, 8, 2, 9 };
+	//int arr[] = { 0, 1, 1, 2, 4, 2, 5, 7, 9, 8, 6, 3 };
+	//int arr[] = { 3, 1, 4, 2 }; 
+	//int arr[] = { 0, 1 };
+	//int arr[] = { 1, 0 };
+	//int arr[] = { 1 };
 	//string arr[] = { "hahah", "hehe", "huhuhu", "jajxi", "hsu" };
-	//int arr[] = { 3, 1, 4, 2 };                                      //针对于有很多循环的可以用小一点的数组测试
+
 	PrintArr(arr, sizeof(arr) / sizeof(arr[0]));
 	//InsertSort(arr, sizeof(arr) / sizeof(arr[0]));
 	//SelectSortD(arr, sizeof(arr) / sizeof(arr[0]));
