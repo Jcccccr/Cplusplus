@@ -3,9 +3,19 @@
 //布隆过滤器基本实现
 
 #include"Bloom.h"
+
+template<class T>
 struct _HashFunc1
 {
-
+	size_t BKDRHash(const T?*str)
+	{
+		register size_t hash  = 0;
+		while (size_t ch  = (size_t)*str++)
+		{
+			hash?= hash*131 + ch;
+		}
+		return hash;
+	}
 };
 struct _HashFunc2
 {
@@ -45,9 +55,11 @@ public:
 	}
 	void Setbloom()
 	{
+
 	}
 	void Resetbloom()
 	{
+
 	}
 	void Find()
 	{
@@ -55,6 +67,7 @@ public:
 protected:
 	size_t HashStr()
 	{
+
 	}
 };
 void  testBloomFilter()
