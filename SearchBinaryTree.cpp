@@ -2,7 +2,8 @@
 #include<iostream>
 #include<string>
 using namespace std;
-//K结构的二叉搜索树       树形数据结构从這里开始涉及到增删查改的
+
+//K结构的二叉搜索树       树形数据结构从這里开始涉及到增删查改    （root参数 引用）
 
 template<class K>
 struct SearchBinaryTreeNode
@@ -73,14 +74,14 @@ public:
 	{
 		return _InsertR(_root, d);
 	}
-	bool FindR(const K& d)
+	bool FindR(const K& d)              //查找
 	{
 	    return _FindR(_root, d);
 	}
 	
-	bool RemovR(const K& d)                 //[*]
+	bool RemoveR(const K& d)                 //[*]
 	{
-		return _RemovR(_root, d);
+		return _RemoveR(_root, d);
 	}
 	//bool Find(const K& d)               //注意：对于K结构的二叉搜索树查找是不允许修改值的，如果修改了则整棵树都可能改变
 	//{
@@ -251,10 +252,16 @@ public:
 			}
 		}
 	}
-	void InOrder()                           //发现二叉搜索树的中序遍历的键值从小到大
+	void InOrder()                           //中序遍历的键值从小到大排列
 	{
 		_inOrder(_root);
 		cout << endl;
+	}
+	Node* FindPublicParent(Node* node1, Node* node2)
+	{
+		assert(node1);
+		assert(node2);
+		return _FindParent(_root, node1, node2);ff
 	}
 protected:
 	//递归插入
@@ -300,7 +307,7 @@ protected:
 		}
 	}
 
-	//递归删除
+	//递归删除      [*]
 	bool _RemoveR(Node*& root, const K& d)
 	{
 		if (root == NULL)
@@ -317,32 +324,42 @@ protected:
 		}
 		else                                //找到
 		{
-			if (root->_left == NULL)
+			Node* delt = root;
+			if (root->_left == NULL)         //左为空
 			{
-				Node* cur = root;
 				root = root->_right;
-				delete cur;
-				cur = NULL;
-				cout << "移除成功" << endl;
 			}
-			else if (root->_right == NULL)
+			else if (root->_right == NULL)   //右为空
 			{
-				Node* cur = root;
 				root = root->_left;
-				delete cur;
-				cur = NULL;
-				cout << "移除成功" << endl;
 			}
-			else       //左右子树都不为空
+			else                    //左右子树都不为空
 			{
-				
-
-				
+				Node* parent = root;
+				Node* left = root->_right;
+				while (left->_left)
+				{
+					parent = left;
+					left = left->_left;
+				}
+				root->_data = left->_data;
+				delt = left;
+				if (parent->_left == left)
+					parent->_left = left->_right;
+				else
+					parent->_right = left->_right;
+				delete delt;
+				return true;
 			}
 		}
 
 	}
-
+	Node* _FindParent(Node* root, Node* node1, Node* node2)
+	{
+		if (root == NULL)
+			return;
+		if ()
+	}
 	void _inOrder(Node* root)
 	{
 		if (root == NULL)
@@ -353,6 +370,8 @@ protected:
 	}
 };
 
+
+// ************************测试************************
 void test()
 {
 	SearchBinaryTree<int> s1;
@@ -363,8 +382,17 @@ void test()
 	}
 	s1.InOrder();
 	cout<<s1.FindR(3)<<endl;
-	//s1.Remove(0);
-	//s1.InOrder();
+	s1.RemoveR(0);
+	s1.InOrder();
+	s1.RemoveR(1);
+	s1.RemoveR(2);
+	s1.RemoveR(4);
+	s1.RemoveR(5);
+	s1.RemoveR(6);
+	s1.RemoveR(7);
+	s1.InOrder();
+
+
 	//s1.Remove(1);
 	//s1.InOrder();
 	//s1.Remove(2);
@@ -373,7 +401,7 @@ void test()
 	//s1.InOrder();
 	//s1.Remove(4);
 	//s1.InOrder();
-	//s1.Remove(5);              //程序从這里开始挂掉了     這个时候树只剩下一半 parent==NULL 
+	//s1.Remove(5);              //原先程序从這里开始挂掉了     這个时候树只剩下一半 parent==NULL 
 	//s1.InOrder();
 	//s1.Remove(6);
 	//s1.InOrder();
