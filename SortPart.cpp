@@ -3,6 +3,7 @@
 #include<iostream>
 #include<string>
 #include<assert.h>
+#include<stack>
 using namespace std;
 
 //打印
@@ -157,10 +158,36 @@ void BubbleSort(int* a,size_t n)
 }
 
 //交换排序—快速排序（快排）（递归）   
-//获取Key值
+
+//获取Key值 
+//三数取中法
 int GetMid(int* a, int begin, int end)
 {
-	return begin;
+	int mid = (begin + end) >> 1;         //存在问题
+	if (a[begin] < a[mid])
+	{
+		if (a[mid] < a[end])         //begin mid end
+			return mid;
+		else                       //begin end mid
+		{
+			if (a[begin] < a[end])
+				return end;
+			else
+				return begin;
+		}
+	}
+	else   //mid  begin                          
+	{
+		if (a[mid] > a[end])          //end  mid begin
+			return mid;
+		else                        
+		{
+			if (a[begin] < a[end])
+				return begin;
+			else
+				return end;
+		}
+	}
 }
 //左右指针法
 int PartSort(int* a, int begin, int end)
@@ -223,6 +250,8 @@ int FSPtrPartSort(int* a, int begin ,int end)
 void QuickSort(int* a, int begin, int end)
 {
 	assert(a);
+	int mid = GetMid(a, begin, end);
+	swap(a[mid], a[end]);
 	if (begin < end)
 	{
 		//int prev = PartSort(a, begin, end);
@@ -232,6 +261,93 @@ void QuickSort(int* a, int begin, int end)
 		QuickSort(a, prev + 1, end);
 	}
 }
+
+//非递归快排      错了[*]
+void QuickSortNR(int* a, int begin, int end)
+{
+	/*int mid = GetMid(a, begin, end);
+	swap(a[mid], a[end]);*/
+	int Mid = FSPtrPartSort(a, begin, end);    
+	stack<int> _s;
+	_s.push(begin);
+	_s.push(end);
+	while (!_s.empty())
+	{
+			int End = _s.top();
+			int tmp = PartSort(a, begin, End) - 1;
+			_s.pop();
+			_s.push(tmp);
+			if (tmp <= begin)
+			{
+				break;
+			}
+	}
+	stack<int> _s1;
+	_s1.push(end);
+	_s1.push(Mid);
+	while (!_s1.empty())
+	{
+		int Begin = _s1.top();
+		int tmp = PartSort(a, Begin, end) + 1;
+		_s1.pop();
+		_s1.push(tmp);
+		if (tmp > end)
+		{
+			break;
+		}
+	}
+}
+
+
+//归并排序   时间复杂度：o(N*lgN)
+//两两归并操作实现
+void _MergeAct(int* a, int* tmp, int begin1, int end1, int begin2, int end2)
+{
+	int start = begin1;
+	int finish = end2;
+	//以上为要保存的需要归并的大区间，方便最后一步操作
+	int index = begin1;
+	while (begin1 <= end1 && begin2 <= end2)     //为什么需要等于
+	{
+		if (a[begin1] < a[begin2])
+			tmp[index++] = a[begin1++];
+		else
+			tmp[index++] = a[begin2++];
+	}
+	//不管是谁先结束，后面没有结束的直接抄到新表中
+	while (begin1 <= end1)               //這里我刚开始没有写=号，后来挂了。因为最后一位也需要拷上去。
+	{
+		tmp[index++] = a[begin1++];
+	}
+	while (begin2 <= end2)
+	{
+		tmp[index++] = a[begin2++];
+	}
+	//一定要记住将归并ok的内容从tmp里面拷回去，注意拷回到哪里去
+	memcpy(a + start, tmp + start, (finish - start + 1)*sizeof(int));
+}
+
+//递归
+void _MergeSort(int* a, int* tmp, int begin, int end)
+{
+	int mid = begin + (end - begin) / 2;  //找中间位置
+	if (begin >= end)
+		return;
+	_MergeSort(a, tmp, begin, mid);     //前半部分递归
+	_MergeSort(a, tmp, mid + 1, end);   //后半部分递归
+    //归并操作
+	_MergeAct(a, tmp, begin, mid, mid + 1, end);
+}
+//先开个空间
+void MergeSort(int* a,int n)
+{
+	assert(a);
+	int* tmp = new int[n];
+	//递归
+	_MergeSort(a, tmp, 0, n - 1);
+	delete[] tmp;
+}
+
 
 int main()
 {
@@ -250,8 +366,10 @@ int main()
 	//SelectSortD(arr, sizeof(arr) / sizeof(arr[0]));
 	//HeapSort(arr, sizeof(arr) / sizeof(arr[0]));
 	//BubbleSort(arr, sizeof(arr) / sizeof(arr[0]));
-	QuickSort(arr, 0, sizeof(arr) / sizeof(arr[0]) - 1);
+	//QuickSortNR(arr, 0, sizeof(arr) / sizeof(arr[0]) - 1);
+	MergeSort(arr, sizeof(arr) / sizeof(arr[0]));
 	PrintArr(arr, sizeof(arr) / sizeof(arr[0]));
+	//GetMid(arr, 7, 9);
 	return 0;
 }
 
