@@ -88,13 +88,12 @@ public:
 		_PrevOrder(_root);
 		cout << endl;
 	}
-	//1.二叉树的镜像
+	//题目一： 二叉树的镜像
 	void MirrorTree()
 	{
 		_MirrorTree(_root);
 	}
 	//找公共的祖先节点 
-
 	//方案一：   使用两个数组
 	//时间复杂度o（N*N）
 	Node*  FindParent(Node* node1, Node* node2)
@@ -144,6 +143,20 @@ public:
 		return NULL;
 	}
 };
+//如果二叉树是搜索二叉树
+Node* _FindParent(Node* root, Node* node1, Node* node2)
+{
+	if (root == NULL)
+		return;
+	if ()
+}
+Node FindPublicParent(Node* node1, Node* node2)
+{
+	assert(node1);
+	assert(node2);
+	return _FindParent(_root, node1, node2);
+}
+
 
 int main()
 {
