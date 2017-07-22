@@ -8,21 +8,24 @@
 #include<assert.h>
 using namespace std;
 
-template <class T>
-void LevelOrder(Node* root)
+//层序遍历
+void LevelOrder()
 {
-	assert(root);
-	queue<int> _q;
-	_q.push(root);
+	assert(_root);
+	Node* cur = _root;
+	queue<Node*> _q;
+	_q.push(cur);
 	while (!_q.empty())
 	{
-        
+		if (cur->_left)
+			_q.push(cur->_left);
+		if (cur->_right)
+			_q.push(cur->_right);
+		cout << _q.front()->_data << " ";
+		_q.pop();
+		if (!_q.empty())             //注意這里为什么有判断   因为最后一次pop  会让队列为空，一个空的队列取front( )引发错误！！！记住了
+			cur = _q.front();
 	}
-   
-}
-void test()
-{
-
 }
 int main()
 {
